@@ -18,7 +18,7 @@ package deploy
 
 import (
 	v1alpha1deploy "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1"
-	//+kubebuilder:scaffold:operator-builder:imports
+	// +kubebuilder:scaffold:operator-builder:imports
 
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
@@ -27,6 +27,6 @@ import (
 func PlatformOperatorsGroupVersions() []schema.GroupVersion {
 	return []schema.GroupVersion{
 		v1alpha1deploy.GroupVersion,
-		//+kubebuilder:scaffold:operator-builder:groupversions
+		// +kubebuilder:scaffold:operator-builder:groupversions
 	}
 }

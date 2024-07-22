@@ -26,7 +26,7 @@ import (
 
 	v1alpha1platformconfig "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1/platformconfig"
 	cmdinit "github.com/tbd-paas/platform-config-operator/cmd/platformctl/commands/init"
-	//+kubebuilder:scaffold:operator-builder:imports
+	// +kubebuilder:scaffold:operator-builder:imports
 )
 
 // getPlatformConfigManifest returns the sample PlatformConfig manifest
@@ -40,7 +40,7 @@ func getPlatformConfigManifest(i *cmdinit.InitSubCommand) (string, error) {
 	// generate a map of all versions to samples for each api version created
 	manifestMap := map[string]string{
 		"v1alpha1": v1alpha1platformconfig.Sample(i.RequiredOnly),
-		//+kubebuilder:scaffold:operator-builder:versionmap
+		// +kubebuilder:scaffold:operator-builder:versionmap
 	}
 
 	// return the manifest if it is not blank

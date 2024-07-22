@@ -32,7 +32,7 @@ import (
 	cmdgenerate "github.com/tbd-paas/platform-config-operator/cmd/platformctl/commands/generate"
 	// specific imports for workloads
 	v1alpha1platformoperators "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1/platformoperators"
-	//+kubebuilder:scaffold:operator-builder:imports
+	// +kubebuilder:scaffold:operator-builder:imports
 )
 
 // NewPlatformOperatorsSubCommand creates a new command and adds it to its
@@ -75,7 +75,7 @@ func GeneratePlatformOperators(g *cmdgenerate.GenerateSubCommand) error {
 	type generateFunc func([]byte) ([]client.Object, error)
 	generateFuncMap := map[string]generateFunc{
 		"v1alpha1": v1alpha1platformoperators.GenerateForCLI,
-		//+kubebuilder:scaffold:operator-builder:versionmap
+		// +kubebuilder:scaffold:operator-builder:versionmap
 	}
 
 	generate := generateFuncMap[apiVersion]

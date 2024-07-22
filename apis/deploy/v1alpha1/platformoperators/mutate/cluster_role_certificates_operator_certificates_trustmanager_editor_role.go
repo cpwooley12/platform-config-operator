@@ -24,8 +24,8 @@ import (
 	deployv1alpha1 "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1"
 )
 
-// MutateClusterRoleCertificatesOperatorMetricsReader mutates the ClusterRole resource with name certificates-operator-metrics-reader.
-func MutateClusterRoleCertificatesOperatorMetricsReader(
+// MutateClusterRoleCertificatesOperatorCertificatesTrustmanagerEditorRole mutates the ClusterRole resource with name certificates-operator-certificates-trustmanager-editor-role.
+func MutateClusterRoleCertificatesOperatorCertificatesTrustmanagerEditorRole(
 	original client.Object,
 	parent *deployv1alpha1.PlatformOperators,
 	reconciler workload.Reconciler, req *workload.Request,

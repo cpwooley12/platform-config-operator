@@ -49,6 +49,10 @@ func CreateTrustManagerConfig(
 					"app.kubernetes.io/part-of":            "platform",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 				},
+				"annotations": map[string]interface{}{
+					"operator-builder.nukleros.io/ready-path":  ".status.created",
+					"operator-builder.nukleros.io/ready-value": "true",
+				},
 			},
 			"spec": map[string]interface{}{
 				"namespace": parent.Spec.Platform.Certificates.Namespace, //  controlled by field: platform.certificates.namespace

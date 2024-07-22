@@ -54,6 +54,8 @@ func CreateNamespacePlatformCertificatesNamespace(
 					"certificates.platform.tbd.io/inject-ca-bundle": "true",
 				},
 				"annotations": map[string]interface{}{
+					"operator-builder.nukleros.io/ready-path":  ".status.created",
+					"operator-builder.nukleros.io/ready-value": "true",
 					// controlled by field: platform.certificates.deploymentSize
 					// Size of the
 					//  deployment for the underlying capability.  Must be one of small, medium, or large.

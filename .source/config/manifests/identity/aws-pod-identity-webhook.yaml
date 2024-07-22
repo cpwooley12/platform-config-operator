@@ -12,6 +12,9 @@ metadata:
     app.kubernetes.io/version: unstable
     app.kubernetes.io/part-of: platform
     app.kubernetes.io/managed-by: platform-config-operator
+  annotations:
+    operator-builder.nukleros.io/ready-path: .status.created
+    operator-builder.nukleros.io/ready-value: "true"
 spec:
   namespace: tbd-identity-system # +operator-builder:field:name=platform.identity.namespace,default="tbd-identity-system",type=string
   replicas: 2

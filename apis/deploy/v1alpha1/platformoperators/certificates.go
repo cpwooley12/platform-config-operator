@@ -41,7 +41,7 @@ func CreateCRDCertmanagersCertificatesPlatformTbdIo(
 			"kind":       "CustomResourceDefinition",
 			"metadata": map[string]interface{}{
 				"annotations": map[string]interface{}{
-					"controller-gen.kubebuilder.io/version": "v0.14.0",
+					"controller-gen.kubebuilder.io/version": "v0.15.0",
 				},
 				"labels": map[string]interface{}{
 					"app":                                  "certificates-operator",
@@ -435,7 +435,7 @@ func CreateCRDTrustmanagersCertificatesPlatformTbdIo(
 			"kind":       "CustomResourceDefinition",
 			"metadata": map[string]interface{}{
 				"annotations": map[string]interface{}{
-					"controller-gen.kubebuilder.io/version": "v0.14.0",
+					"controller-gen.kubebuilder.io/version": "v0.15.0",
 				},
 				"labels": map[string]interface{}{
 					"app":                                  "certificates-operator",
@@ -698,7 +698,6 @@ func CreateServiceAccountNamespaceCertificatesOperatorControllerManager(
 				"labels": map[string]interface{}{
 					"app":                                  "certificates-operator",
 					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "certificates-operator",
@@ -737,7 +736,6 @@ func CreateRoleNamespaceCertificatesOperatorLeaderElectionRole(
 				"labels": map[string]interface{}{
 					"app":                                  "certificates-operator",
 					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "certificates-operator",
@@ -802,6 +800,262 @@ func CreateRoleNamespaceCertificatesOperatorLeaderElectionRole(
 	}
 
 	return mutate.MutateRoleNamespaceCertificatesOperatorLeaderElectionRole(resourceObj, parent, reconciler, req)
+}
+
+// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=certmanagers,verbs=create;delete;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=certmanagers/status,verbs=get
+
+// CreateClusterRoleCertificatesOperatorCertificatesCertmanagerEditorRole creates the ClusterRole resource with name certificates-operator-certificates-certmanager-editor-role.
+func CreateClusterRoleCertificatesOperatorCertificatesCertmanagerEditorRole(
+	parent *deployv1alpha1.PlatformOperators,
+	reconciler workload.Reconciler,
+	req *workload.Request,
+) ([]client.Object, error) {
+
+	var resourceObj = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "rbac.authorization.k8s.io/v1",
+			"kind":       "ClusterRole",
+			"metadata": map[string]interface{}{
+				"labels": map[string]interface{}{
+					"app":                                  "certificates-operator",
+					"app.kubernetes.io/component":          "certificates-operator",
+					"app.kubernetes.io/instance":           "manager",
+					"app.kubernetes.io/managed-by":         "platform-config-operator",
+					"app.kubernetes.io/name":               "certificates-operator",
+					"app.kubernetes.io/part-of":            "platform",
+					"app.kubernetes.io/version":            "unstable",
+					"capabilities.tbd.io/capability":       "platform-config",
+					"capabilities.tbd.io/platform-version": "unstable",
+					"capabilities.tbd.io/version":          "v0.0.1",
+				},
+				"name": "certificates-operator-certificates-certmanager-editor-role",
+			},
+			"rules": []interface{}{
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"certmanagers",
+					},
+					"verbs": []interface{}{
+						"create",
+						"delete",
+						"get",
+						"list",
+						"patch",
+						"update",
+						"watch",
+					},
+				},
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"certmanagers/status",
+					},
+					"verbs": []interface{}{
+						"get",
+					},
+				},
+			},
+		},
+	}
+
+	return mutate.MutateClusterRoleCertificatesOperatorCertificatesCertmanagerEditorRole(resourceObj, parent, reconciler, req)
+}
+
+// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=certmanagers,verbs=get;list;watch
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=certmanagers/status,verbs=get
+
+// CreateClusterRoleCertificatesOperatorCertificatesCertmanagerViewerRole creates the ClusterRole resource with name certificates-operator-certificates-certmanager-viewer-role.
+func CreateClusterRoleCertificatesOperatorCertificatesCertmanagerViewerRole(
+	parent *deployv1alpha1.PlatformOperators,
+	reconciler workload.Reconciler,
+	req *workload.Request,
+) ([]client.Object, error) {
+
+	var resourceObj = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "rbac.authorization.k8s.io/v1",
+			"kind":       "ClusterRole",
+			"metadata": map[string]interface{}{
+				"labels": map[string]interface{}{
+					"app":                                  "certificates-operator",
+					"app.kubernetes.io/component":          "certificates-operator",
+					"app.kubernetes.io/instance":           "manager",
+					"app.kubernetes.io/managed-by":         "platform-config-operator",
+					"app.kubernetes.io/name":               "certificates-operator",
+					"app.kubernetes.io/part-of":            "platform",
+					"app.kubernetes.io/version":            "unstable",
+					"capabilities.tbd.io/capability":       "platform-config",
+					"capabilities.tbd.io/platform-version": "unstable",
+					"capabilities.tbd.io/version":          "v0.0.1",
+				},
+				"name": "certificates-operator-certificates-certmanager-viewer-role",
+			},
+			"rules": []interface{}{
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"certmanagers",
+					},
+					"verbs": []interface{}{
+						"get",
+						"list",
+						"watch",
+					},
+				},
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"certmanagers/status",
+					},
+					"verbs": []interface{}{
+						"get",
+					},
+				},
+			},
+		},
+	}
+
+	return mutate.MutateClusterRoleCertificatesOperatorCertificatesCertmanagerViewerRole(resourceObj, parent, reconciler, req)
+}
+
+// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=trustmanagers,verbs=create;delete;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=trustmanagers/status,verbs=get
+
+// CreateClusterRoleCertificatesOperatorCertificatesTrustmanagerEditorRole creates the ClusterRole resource with name certificates-operator-certificates-trustmanager-editor-role.
+func CreateClusterRoleCertificatesOperatorCertificatesTrustmanagerEditorRole(
+	parent *deployv1alpha1.PlatformOperators,
+	reconciler workload.Reconciler,
+	req *workload.Request,
+) ([]client.Object, error) {
+
+	var resourceObj = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "rbac.authorization.k8s.io/v1",
+			"kind":       "ClusterRole",
+			"metadata": map[string]interface{}{
+				"labels": map[string]interface{}{
+					"app":                                  "certificates-operator",
+					"app.kubernetes.io/component":          "certificates-operator",
+					"app.kubernetes.io/instance":           "manager",
+					"app.kubernetes.io/managed-by":         "platform-config-operator",
+					"app.kubernetes.io/name":               "certificates-operator",
+					"app.kubernetes.io/part-of":            "platform",
+					"app.kubernetes.io/version":            "unstable",
+					"capabilities.tbd.io/capability":       "platform-config",
+					"capabilities.tbd.io/platform-version": "unstable",
+					"capabilities.tbd.io/version":          "v0.0.1",
+				},
+				"name": "certificates-operator-certificates-trustmanager-editor-role",
+			},
+			"rules": []interface{}{
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"trustmanagers",
+					},
+					"verbs": []interface{}{
+						"create",
+						"delete",
+						"get",
+						"list",
+						"patch",
+						"update",
+						"watch",
+					},
+				},
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"trustmanagers/status",
+					},
+					"verbs": []interface{}{
+						"get",
+					},
+				},
+			},
+		},
+	}
+
+	return mutate.MutateClusterRoleCertificatesOperatorCertificatesTrustmanagerEditorRole(resourceObj, parent, reconciler, req)
+}
+
+// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=trustmanagers,verbs=get;list;watch
+// +kubebuilder:rbac:groups=certificates.platform.tbd.io,resources=trustmanagers/status,verbs=get
+
+// CreateClusterRoleCertificatesOperatorCertificatesTrustmanagerViewerRole creates the ClusterRole resource with name certificates-operator-certificates-trustmanager-viewer-role.
+func CreateClusterRoleCertificatesOperatorCertificatesTrustmanagerViewerRole(
+	parent *deployv1alpha1.PlatformOperators,
+	reconciler workload.Reconciler,
+	req *workload.Request,
+) ([]client.Object, error) {
+
+	var resourceObj = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "rbac.authorization.k8s.io/v1",
+			"kind":       "ClusterRole",
+			"metadata": map[string]interface{}{
+				"labels": map[string]interface{}{
+					"app":                                  "certificates-operator",
+					"app.kubernetes.io/component":          "certificates-operator",
+					"app.kubernetes.io/instance":           "manager",
+					"app.kubernetes.io/managed-by":         "platform-config-operator",
+					"app.kubernetes.io/name":               "certificates-operator",
+					"app.kubernetes.io/part-of":            "platform",
+					"app.kubernetes.io/version":            "unstable",
+					"capabilities.tbd.io/capability":       "platform-config",
+					"capabilities.tbd.io/platform-version": "unstable",
+					"capabilities.tbd.io/version":          "v0.0.1",
+				},
+				"name": "certificates-operator-certificates-trustmanager-viewer-role",
+			},
+			"rules": []interface{}{
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"trustmanagers",
+					},
+					"verbs": []interface{}{
+						"get",
+						"list",
+						"watch",
+					},
+				},
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"certificates.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"trustmanagers/status",
+					},
+					"verbs": []interface{}{
+						"get",
+					},
+				},
+			},
+		},
+	}
+
+	return mutate.MutateClusterRoleCertificatesOperatorCertificatesTrustmanagerViewerRole(resourceObj, parent, reconciler, req)
 }
 
 // +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
@@ -1649,113 +1903,6 @@ func CreateClusterRoleCertificatesOperatorManagerRole(
 	return mutate.MutateClusterRoleCertificatesOperatorManagerRole(resourceObj, parent, reconciler, req)
 }
 
-// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:verbs=get,urls=/metrics
-
-// CreateClusterRoleCertificatesOperatorMetricsReader creates the ClusterRole resource with name certificates-operator-metrics-reader.
-func CreateClusterRoleCertificatesOperatorMetricsReader(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "rbac.authorization.k8s.io/v1",
-			"kind":       "ClusterRole",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "certificates-operator",
-					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "certificates-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-				},
-				"name": "certificates-operator-metrics-reader",
-			},
-			"rules": []interface{}{
-				map[string]interface{}{
-					"nonResourceURLs": []interface{}{
-						"/metrics",
-					},
-					"verbs": []interface{}{
-						"get",
-					},
-				},
-			},
-		},
-	}
-
-	return mutate.MutateClusterRoleCertificatesOperatorMetricsReader(resourceObj, parent, reconciler, req)
-}
-
-// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=authentication.k8s.io,resources=tokenreviews,verbs=create
-// +kubebuilder:rbac:groups=authorization.k8s.io,resources=subjectaccessreviews,verbs=create
-
-// CreateClusterRoleCertificatesOperatorProxyRole creates the ClusterRole resource with name certificates-operator-proxy-role.
-func CreateClusterRoleCertificatesOperatorProxyRole(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "rbac.authorization.k8s.io/v1",
-			"kind":       "ClusterRole",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "certificates-operator",
-					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "certificates-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-				},
-				"name": "certificates-operator-proxy-role",
-			},
-			"rules": []interface{}{
-				map[string]interface{}{
-					"apiGroups": []interface{}{
-						"authentication.k8s.io",
-					},
-					"resources": []interface{}{
-						"tokenreviews",
-					},
-					"verbs": []interface{}{
-						"create",
-					},
-				},
-				map[string]interface{}{
-					"apiGroups": []interface{}{
-						"authorization.k8s.io",
-					},
-					"resources": []interface{}{
-						"subjectaccessreviews",
-					},
-					"verbs": []interface{}{
-						"create",
-					},
-				},
-			},
-		},
-	}
-
-	return mutate.MutateClusterRoleCertificatesOperatorProxyRole(resourceObj, parent, reconciler, req)
-}
-
 // +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=rolebindings,verbs=get;list;watch;create;update;patch;delete
 
 // CreateRoleBindingNamespaceCertificatesOperatorLeaderElectionRolebinding creates the RoleBinding resource with name certificates-operator-leader-election-rolebinding.
@@ -1773,7 +1920,6 @@ func CreateRoleBindingNamespaceCertificatesOperatorLeaderElectionRolebinding(
 				"labels": map[string]interface{}{
 					"app":                                  "certificates-operator",
 					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "certificates-operator",
@@ -1821,7 +1967,6 @@ func CreateClusterRoleBindingCertificatesOperatorManagerRolebinding(
 				"labels": map[string]interface{}{
 					"app":                                  "certificates-operator",
 					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "certificates-operator",
@@ -1851,113 +1996,6 @@ func CreateClusterRoleBindingCertificatesOperatorManagerRolebinding(
 	return mutate.MutateClusterRoleBindingCertificatesOperatorManagerRolebinding(resourceObj, parent, reconciler, req)
 }
 
-// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterrolebindings,verbs=get;list;watch;create;update;patch;delete
-
-// CreateClusterRoleBindingCertificatesOperatorProxyRolebinding creates the ClusterRoleBinding resource with name certificates-operator-proxy-rolebinding.
-func CreateClusterRoleBindingCertificatesOperatorProxyRolebinding(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "rbac.authorization.k8s.io/v1",
-			"kind":       "ClusterRoleBinding",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "certificates-operator",
-					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "certificates-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-				},
-				"name": "certificates-operator-proxy-rolebinding",
-			},
-			"roleRef": map[string]interface{}{
-				"apiGroup": "rbac.authorization.k8s.io",
-				"kind":     "ClusterRole",
-				"name":     "certificates-operator-proxy-role",
-			},
-			"subjects": []interface{}{
-				map[string]interface{}{
-					"kind":      "ServiceAccount",
-					"name":      "certificates-operator-controller-manager",
-					"namespace": parent.Spec.Namespace, //  controlled by field: namespace
-				},
-			},
-		},
-	}
-
-	return mutate.MutateClusterRoleBindingCertificatesOperatorProxyRolebinding(resourceObj, parent, reconciler, req)
-}
-
-// +kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
-
-// CreateServiceNamespaceCertificatesOperatorControllerManagerMetricsService creates the Service resource with name certificates-operator-controller-manager-metrics-service.
-func CreateServiceNamespaceCertificatesOperatorControllerManagerMetricsService(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "v1",
-			"kind":       "Service",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "certificates-operator",
-					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "certificates-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-					"control-plane":                        "controller-manager",
-				},
-				"name":      "certificates-operator-controller-manager-metrics-service",
-				"namespace": parent.Spec.Namespace, //  controlled by field: namespace
-			},
-			"spec": map[string]interface{}{
-				"ports": []interface{}{
-					map[string]interface{}{
-						"name":       "https",
-						"port":       8443,
-						"protocol":   "TCP",
-						"targetPort": "https",
-					},
-				},
-				"selector": map[string]interface{}{
-					"app":                                  "certificates-operator",
-					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "certificates-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "v0.0.1",
-					"capabilities.tbd.io/capability":       "certificates",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-					"control-plane":                        "controller-manager",
-				},
-			},
-		},
-	}
-
-	return mutate.MutateServiceNamespaceCertificatesOperatorControllerManagerMetricsService(resourceObj, parent, reconciler, req)
-}
-
 // +kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 
 // CreateDeploymentNamespaceCertificatesOperatorControllerManager creates the Deployment resource with name certificates-operator-controller-manager.
@@ -1975,7 +2013,6 @@ func CreateDeploymentNamespaceCertificatesOperatorControllerManager(
 				"labels": map[string]interface{}{
 					"app":                                  "certificates-operator",
 					"app.kubernetes.io/component":          "certificates-operator",
-					"app.kubernetes.io/created-by":         "capabilities-certificates-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "certificates-operator",
@@ -2094,7 +2131,7 @@ func CreateDeploymentNamespaceCertificatesOperatorControllerManager(
 								"command": []interface{}{
 									"/manager",
 								},
-								"image": "quay.io/tbd-paas/certificates-operator:v0.0.0-alpha.1",
+								"image": "quay.io/tbd-paas/certificates-operator:v0.0.0-alpha.2",
 								"livenessProbe": map[string]interface{}{
 									"httpGet": map[string]interface{}{
 										"path": "/healthz",
@@ -2134,9 +2171,8 @@ func CreateDeploymentNamespaceCertificatesOperatorControllerManager(
 							},
 						},
 						"nodeSelector": map[string]interface{}{
-							"kubernetes.io/arch": "arm64",
-							"kubernetes.io/os":   "linux",
-							"tbd.io/node-type":   "platform",
+							"kubernetes.io/os": "linux",
+							"tbd.io/node-type": "platform",
 						},
 						"securityContext": map[string]interface{}{
 							"fsGroup":      1001,

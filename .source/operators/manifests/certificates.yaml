@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   labels:
     app: certificates-operator
     app.kubernetes.io/component: certificates-operator
@@ -311,7 +311,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   labels:
     app: certificates-operator
     app.kubernetes.io/component: certificates-operator
@@ -507,7 +507,6 @@ metadata:
   labels:
     app: certificates-operator
     app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-config-operator
     app.kubernetes.io/name: certificates-operator
@@ -525,7 +524,6 @@ metadata:
   labels:
     app: certificates-operator
     app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-config-operator
     app.kubernetes.io/name: certificates-operator
@@ -568,6 +566,138 @@ rules:
     verbs:
       - create
       - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: certificates-operator
+    app.kubernetes.io/component: certificates-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-config-operator
+    app.kubernetes.io/name: certificates-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: unstable
+    capabilities.tbd.io/capability: platform-config
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: certificates-operator-certificates-certmanager-editor-role
+rules:
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - certmanagers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - certmanagers/status
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: certificates-operator
+    app.kubernetes.io/component: certificates-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-config-operator
+    app.kubernetes.io/name: certificates-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: unstable
+    capabilities.tbd.io/capability: platform-config
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: certificates-operator-certificates-certmanager-viewer-role
+rules:
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - certmanagers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - certmanagers/status
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: certificates-operator
+    app.kubernetes.io/component: certificates-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-config-operator
+    app.kubernetes.io/name: certificates-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: unstable
+    capabilities.tbd.io/capability: platform-config
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: certificates-operator-certificates-trustmanager-editor-role
+rules:
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - trustmanagers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - trustmanagers/status
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: certificates-operator
+    app.kubernetes.io/component: certificates-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-config-operator
+    app.kubernetes.io/name: certificates-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: unstable
+    capabilities.tbd.io/capability: platform-config
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: certificates-operator-certificates-trustmanager-viewer-role
+rules:
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - trustmanagers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - certificates.platform.tbd.io
+    resources:
+      - trustmanagers/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1079,64 +1209,11 @@ rules:
       - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app: certificates-operator
-    app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-config-operator
-    app.kubernetes.io/name: certificates-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: unstable
-    capabilities.tbd.io/capability: platform-config
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-  name: certificates-operator-metrics-reader
-rules:
-  - nonResourceURLs:
-      - /metrics
-    verbs:
-      - get
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app: certificates-operator
-    app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-config-operator
-    app.kubernetes.io/name: certificates-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: unstable
-    capabilities.tbd.io/capability: platform-config
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-  name: certificates-operator-proxy-role
-rules:
-  - apiGroups:
-      - authentication.k8s.io
-    resources:
-      - tokenreviews
-    verbs:
-      - create
-  - apiGroups:
-      - authorization.k8s.io
-    resources:
-      - subjectaccessreviews
-    verbs:
-      - create
----
-apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
     app: certificates-operator
     app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-config-operator
     app.kubernetes.io/name: certificates-operator
@@ -1162,7 +1239,6 @@ metadata:
   labels:
     app: certificates-operator
     app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-config-operator
     app.kubernetes.io/name: certificates-operator
@@ -1181,75 +1257,12 @@ subjects:
     name: certificates-operator-controller-manager
     namespace: tbd-operators-system # +operator-builder:field:name=namespace,default="tbd-operators-system",type=string
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    app: certificates-operator
-    app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-config-operator
-    app.kubernetes.io/name: certificates-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: unstable
-    capabilities.tbd.io/capability: platform-config
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-  name: certificates-operator-proxy-rolebinding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: certificates-operator-proxy-role
-subjects:
-  - kind: ServiceAccount
-    name: certificates-operator-controller-manager
-    namespace: tbd-operators-system # +operator-builder:field:name=namespace,default="tbd-operators-system",type=string
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: certificates-operator
-    app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-config-operator
-    app.kubernetes.io/name: certificates-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: unstable
-    capabilities.tbd.io/capability: platform-config
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-    control-plane: controller-manager
-  name: certificates-operator-controller-manager-metrics-service
-  namespace: tbd-operators-system # +operator-builder:field:name=namespace,default="tbd-operators-system",type=string
-spec:
-  ports:
-    - name: https
-      port: 8443
-      protocol: TCP
-      targetPort: https
-  selector:
-    app: certificates-operator
-    app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-config-operator
-    app.kubernetes.io/name: certificates-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: v0.0.1
-    capabilities.tbd.io/capability: certificates
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-    control-plane: controller-manager
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: certificates-operator
     app.kubernetes.io/component: certificates-operator
-    app.kubernetes.io/created-by: capabilities-certificates-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-config-operator
     app.kubernetes.io/name: certificates-operator
@@ -1335,7 +1348,7 @@ spec:
             - --leader-elect
           command:
             - /manager
-          image: quay.io/tbd-paas/certificates-operator:v0.0.0-alpha.1
+          image: quay.io/tbd-paas/certificates-operator:v0.0.0-alpha.2
           livenessProbe:
             httpGet:
               path: /healthz
@@ -1363,7 +1376,6 @@ spec:
                 - ALL
             readOnlyRootFilesystem: true
       nodeSelector:
-        kubernetes.io/arch: arm64
         kubernetes.io/os: linux
         tbd.io/node-type: platform
       securityContext:

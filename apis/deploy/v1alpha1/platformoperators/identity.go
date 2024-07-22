@@ -41,7 +41,7 @@ func CreateCRDAwspodidentitywebhooksIdentityPlatformTbdIo(
 			"kind":       "CustomResourceDefinition",
 			"metadata": map[string]interface{}{
 				"annotations": map[string]interface{}{
-					"controller-gen.kubebuilder.io/version": "v0.14.0",
+					"controller-gen.kubebuilder.io/version": "v0.15.0",
 				},
 				"labels": map[string]interface{}{
 					"app":                                  "identity-operator",
@@ -299,7 +299,6 @@ func CreateServiceAccountNamespaceIdentityOperatorControllerManager(
 				"labels": map[string]interface{}{
 					"app":                                  "identity-operator",
 					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "identity-operator",
@@ -338,7 +337,6 @@ func CreateRoleNamespaceIdentityOperatorLeaderElectionRole(
 				"labels": map[string]interface{}{
 					"app":                                  "identity-operator",
 					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "identity-operator",
@@ -406,11 +404,138 @@ func CreateRoleNamespaceIdentityOperatorLeaderElectionRole(
 }
 
 // +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=identity.platform.tbd.io,resources=awspodidentitywebhooks,verbs=create;delete;get;list;patch;update;watch
+// +kubebuilder:rbac:groups=identity.platform.tbd.io,resources=awspodidentitywebhooks/status,verbs=get
+
+// CreateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookEditorRole creates the ClusterRole resource with name identity-operator-identity-awspodidentitywebhook-editor-role.
+func CreateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookEditorRole(
+	parent *deployv1alpha1.PlatformOperators,
+	reconciler workload.Reconciler,
+	req *workload.Request,
+) ([]client.Object, error) {
+
+	var resourceObj = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "rbac.authorization.k8s.io/v1",
+			"kind":       "ClusterRole",
+			"metadata": map[string]interface{}{
+				"labels": map[string]interface{}{
+					"app":                                  "identity-operator",
+					"app.kubernetes.io/component":          "identity-operator",
+					"app.kubernetes.io/instance":           "manager",
+					"app.kubernetes.io/managed-by":         "platform-config-operator",
+					"app.kubernetes.io/name":               "identity-operator",
+					"app.kubernetes.io/part-of":            "platform",
+					"app.kubernetes.io/version":            "unstable",
+					"capabilities.tbd.io/capability":       "platform-config",
+					"capabilities.tbd.io/platform-version": "unstable",
+					"capabilities.tbd.io/version":          "v0.0.1",
+				},
+				"name": "identity-operator-identity-awspodidentitywebhook-editor-role",
+			},
+			"rules": []interface{}{
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"identity.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"awspodidentitywebhooks",
+					},
+					"verbs": []interface{}{
+						"create",
+						"delete",
+						"get",
+						"list",
+						"patch",
+						"update",
+						"watch",
+					},
+				},
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"identity.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"awspodidentitywebhooks/status",
+					},
+					"verbs": []interface{}{
+						"get",
+					},
+				},
+			},
+		},
+	}
+
+	return mutate.MutateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookEditorRole(resourceObj, parent, reconciler, req)
+}
+
+// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=identity.platform.tbd.io,resources=awspodidentitywebhooks,verbs=get;list;watch
+// +kubebuilder:rbac:groups=identity.platform.tbd.io,resources=awspodidentitywebhooks/status,verbs=get
+
+// CreateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookViewerRole creates the ClusterRole resource with name identity-operator-identity-awspodidentitywebhook-viewer-role.
+func CreateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookViewerRole(
+	parent *deployv1alpha1.PlatformOperators,
+	reconciler workload.Reconciler,
+	req *workload.Request,
+) ([]client.Object, error) {
+
+	var resourceObj = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "rbac.authorization.k8s.io/v1",
+			"kind":       "ClusterRole",
+			"metadata": map[string]interface{}{
+				"labels": map[string]interface{}{
+					"app":                                  "identity-operator",
+					"app.kubernetes.io/component":          "identity-operator",
+					"app.kubernetes.io/instance":           "manager",
+					"app.kubernetes.io/managed-by":         "platform-config-operator",
+					"app.kubernetes.io/name":               "identity-operator",
+					"app.kubernetes.io/part-of":            "platform",
+					"app.kubernetes.io/version":            "unstable",
+					"capabilities.tbd.io/capability":       "platform-config",
+					"capabilities.tbd.io/platform-version": "unstable",
+					"capabilities.tbd.io/version":          "v0.0.1",
+				},
+				"name": "identity-operator-identity-awspodidentitywebhook-viewer-role",
+			},
+			"rules": []interface{}{
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"identity.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"awspodidentitywebhooks",
+					},
+					"verbs": []interface{}{
+						"get",
+						"list",
+						"watch",
+					},
+				},
+				map[string]interface{}{
+					"apiGroups": []interface{}{
+						"identity.platform.tbd.io",
+					},
+					"resources": []interface{}{
+						"awspodidentitywebhooks/status",
+					},
+					"verbs": []interface{}{
+						"get",
+					},
+				},
+			},
+		},
+	}
+
+	return mutate.MutateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookViewerRole(resourceObj, parent, reconciler, req)
+}
+
+// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=admissionregistration.k8s.io,resources=mutatingwebhookconfigurations,verbs=create;delete;get;list;patch;update;watch
 // +kubebuilder:rbac:groups=apps,resources=deployments,verbs=create;delete;get;list;patch;update;watch
 // +kubebuilder:rbac:groups=cert-manager.io,resources=certificates,verbs=create;delete;get;list;patch;update;watch
 // +kubebuilder:rbac:groups=certificates.k8s.io,resources=certificatesigningrequests,verbs=create;get;list;watch
-// +kubebuilder:rbac:groups=core,resources=endpoints,verbs=get;list;watch
 // +kubebuilder:rbac:groups=core,resources=events,verbs=create;get;patch;update
 // +kubebuilder:rbac:groups=core,resources=namespaces,verbs=list;watch
 // +kubebuilder:rbac:groups=core,resources=secrets,verbs=create;get;patch;update
@@ -509,19 +634,6 @@ func CreateClusterRoleIdentityOperatorManagerRole(
 					},
 					"verbs": []interface{}{
 						"create",
-						"get",
-						"list",
-						"watch",
-					},
-				},
-				map[string]interface{}{
-					"apiGroups": []interface{}{
-						"",
-					},
-					"resources": []interface{}{
-						"endpoints",
-					},
-					"verbs": []interface{}{
 						"get",
 						"list",
 						"watch",
@@ -706,113 +818,6 @@ func CreateClusterRoleIdentityOperatorManagerRole(
 	return mutate.MutateClusterRoleIdentityOperatorManagerRole(resourceObj, parent, reconciler, req)
 }
 
-// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:verbs=get,urls=/metrics
-
-// CreateClusterRoleIdentityOperatorMetricsReader creates the ClusterRole resource with name identity-operator-metrics-reader.
-func CreateClusterRoleIdentityOperatorMetricsReader(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "rbac.authorization.k8s.io/v1",
-			"kind":       "ClusterRole",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "identity-operator",
-					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "identity-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-				},
-				"name": "identity-operator-metrics-reader",
-			},
-			"rules": []interface{}{
-				map[string]interface{}{
-					"nonResourceURLs": []interface{}{
-						"/metrics",
-					},
-					"verbs": []interface{}{
-						"get",
-					},
-				},
-			},
-		},
-	}
-
-	return mutate.MutateClusterRoleIdentityOperatorMetricsReader(resourceObj, parent, reconciler, req)
-}
-
-// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterroles,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=authentication.k8s.io,resources=tokenreviews,verbs=create
-// +kubebuilder:rbac:groups=authorization.k8s.io,resources=subjectaccessreviews,verbs=create
-
-// CreateClusterRoleIdentityOperatorProxyRole creates the ClusterRole resource with name identity-operator-proxy-role.
-func CreateClusterRoleIdentityOperatorProxyRole(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "rbac.authorization.k8s.io/v1",
-			"kind":       "ClusterRole",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "identity-operator",
-					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "identity-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-				},
-				"name": "identity-operator-proxy-role",
-			},
-			"rules": []interface{}{
-				map[string]interface{}{
-					"apiGroups": []interface{}{
-						"authentication.k8s.io",
-					},
-					"resources": []interface{}{
-						"tokenreviews",
-					},
-					"verbs": []interface{}{
-						"create",
-					},
-				},
-				map[string]interface{}{
-					"apiGroups": []interface{}{
-						"authorization.k8s.io",
-					},
-					"resources": []interface{}{
-						"subjectaccessreviews",
-					},
-					"verbs": []interface{}{
-						"create",
-					},
-				},
-			},
-		},
-	}
-
-	return mutate.MutateClusterRoleIdentityOperatorProxyRole(resourceObj, parent, reconciler, req)
-}
-
 // +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=rolebindings,verbs=get;list;watch;create;update;patch;delete
 
 // CreateRoleBindingNamespaceIdentityOperatorLeaderElectionRolebinding creates the RoleBinding resource with name identity-operator-leader-election-rolebinding.
@@ -830,7 +835,6 @@ func CreateRoleBindingNamespaceIdentityOperatorLeaderElectionRolebinding(
 				"labels": map[string]interface{}{
 					"app":                                  "identity-operator",
 					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "identity-operator",
@@ -878,7 +882,6 @@ func CreateClusterRoleBindingIdentityOperatorManagerRolebinding(
 				"labels": map[string]interface{}{
 					"app":                                  "identity-operator",
 					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "identity-operator",
@@ -908,113 +911,6 @@ func CreateClusterRoleBindingIdentityOperatorManagerRolebinding(
 	return mutate.MutateClusterRoleBindingIdentityOperatorManagerRolebinding(resourceObj, parent, reconciler, req)
 }
 
-// +kubebuilder:rbac:groups=rbac.authorization.k8s.io,resources=clusterrolebindings,verbs=get;list;watch;create;update;patch;delete
-
-// CreateClusterRoleBindingIdentityOperatorProxyRolebinding creates the ClusterRoleBinding resource with name identity-operator-proxy-rolebinding.
-func CreateClusterRoleBindingIdentityOperatorProxyRolebinding(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "rbac.authorization.k8s.io/v1",
-			"kind":       "ClusterRoleBinding",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "identity-operator",
-					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "identity-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-				},
-				"name": "identity-operator-proxy-rolebinding",
-			},
-			"roleRef": map[string]interface{}{
-				"apiGroup": "rbac.authorization.k8s.io",
-				"kind":     "ClusterRole",
-				"name":     "identity-operator-proxy-role",
-			},
-			"subjects": []interface{}{
-				map[string]interface{}{
-					"kind":      "ServiceAccount",
-					"name":      "identity-operator-controller-manager",
-					"namespace": parent.Spec.Namespace, //  controlled by field: namespace
-				},
-			},
-		},
-	}
-
-	return mutate.MutateClusterRoleBindingIdentityOperatorProxyRolebinding(resourceObj, parent, reconciler, req)
-}
-
-// +kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
-
-// CreateServiceNamespaceIdentityOperatorControllerManagerMetricsService creates the Service resource with name identity-operator-controller-manager-metrics-service.
-func CreateServiceNamespaceIdentityOperatorControllerManagerMetricsService(
-	parent *deployv1alpha1.PlatformOperators,
-	reconciler workload.Reconciler,
-	req *workload.Request,
-) ([]client.Object, error) {
-
-	var resourceObj = &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"apiVersion": "v1",
-			"kind":       "Service",
-			"metadata": map[string]interface{}{
-				"labels": map[string]interface{}{
-					"app":                                  "identity-operator",
-					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "identity-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "unstable",
-					"capabilities.tbd.io/capability":       "platform-config",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-					"control-plane":                        "controller-manager",
-				},
-				"name":      "identity-operator-controller-manager-metrics-service",
-				"namespace": parent.Spec.Namespace, //  controlled by field: namespace
-			},
-			"spec": map[string]interface{}{
-				"ports": []interface{}{
-					map[string]interface{}{
-						"name":       "https",
-						"port":       8443,
-						"protocol":   "TCP",
-						"targetPort": "https",
-					},
-				},
-				"selector": map[string]interface{}{
-					"app":                                  "identity-operator",
-					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/instance":           "manager",
-					"app.kubernetes.io/managed-by":         "platform-config-operator",
-					"app.kubernetes.io/name":               "identity-operator",
-					"app.kubernetes.io/part-of":            "platform",
-					"app.kubernetes.io/version":            "v0.0.1",
-					"capabilities.tbd.io/capability":       "identity",
-					"capabilities.tbd.io/platform-version": "unstable",
-					"capabilities.tbd.io/version":          "v0.0.1",
-					"control-plane":                        "controller-manager",
-				},
-			},
-		},
-	}
-
-	return mutate.MutateServiceNamespaceIdentityOperatorControllerManagerMetricsService(resourceObj, parent, reconciler, req)
-}
-
 // +kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 
 // CreateDeploymentNamespaceIdentityOperatorControllerManager creates the Deployment resource with name identity-operator-controller-manager.
@@ -1032,7 +928,6 @@ func CreateDeploymentNamespaceIdentityOperatorControllerManager(
 				"labels": map[string]interface{}{
 					"app":                                  "identity-operator",
 					"app.kubernetes.io/component":          "identity-operator",
-					"app.kubernetes.io/created-by":         "capabilities-identity-operator",
 					"app.kubernetes.io/instance":           "manager",
 					"app.kubernetes.io/managed-by":         "platform-config-operator",
 					"app.kubernetes.io/name":               "identity-operator",
@@ -1151,7 +1046,7 @@ func CreateDeploymentNamespaceIdentityOperatorControllerManager(
 								"command": []interface{}{
 									"/manager",
 								},
-								"image": "quay.io/tbd-paas/identity-operator:v0.0.0-alpha.1",
+								"image": "quay.io/tbd-paas/identity-operator:v0.0.0-alpha.2",
 								"livenessProbe": map[string]interface{}{
 									"httpGet": map[string]interface{}{
 										"path": "/healthz",

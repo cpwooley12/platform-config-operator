@@ -4,7 +4,6 @@ metadata:
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-bootstrapper
     app.kubernetes.io/name: platform-config-operator
@@ -20,7 +19,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
@@ -71,11 +70,13 @@ spec:
                 properties:
                   local:
                     default: true
-                    description: "(Default: true)\n\n\n\tWhether this cloud is deployed as a local cloud to use for testing scenarios."
+                    description: "(Default: true)\n\n\n\tWhether this cloud is deployed
+                      as a local cloud to use for testing scenarios."
                     type: boolean
                   type:
                     default: aws
-                    description: "(Default: \"aws\")\n\n\n\tUnderlying cloud type this platform is deployed upon.  Currently, only AWS is supported."
+                    description: "(Default: \"aws\")\n\n\n\tUnderlying cloud type
+                      this platform is deployed upon.  Currently, only AWS is supported."
                     enum:
                     - aws
                     type: string
@@ -86,22 +87,28 @@ spec:
                     properties:
                       deploymentSize:
                         default: small
-                        description: "(Default: \"small\")\nSize of the\n\n\n\tdeployment for the underlying capability.  Must be one of small, medium, or large."
+                        description: "(Default: \"small\")\nSize of the\n\n\n\tdeployment
+                          for the underlying capability.  Must be one of small, medium,
+                          or large."
                         type: string
                       namespace:
                         default: tbd-certificates-system
-                        description: "(Default: \"tbd-certificates-system\")\nNamespace where\n\n\n\tthe capability components will be deployed."
+                        description: "(Default: \"tbd-certificates-system\")\nNamespace
+                          where\n\n\n\tthe capability components will be deployed."
                         type: string
                     type: object
                   identity:
                     properties:
                       deploymentSize:
                         default: small
-                        description: "(Default: \"small\")\nSize of the\n\n\n\tdeployment for the underlying capability.  Must be one of small, medium, or large."
+                        description: "(Default: \"small\")\nSize of the\n\n\n\tdeployment
+                          for the underlying capability.  Must be one of small, medium,
+                          or large."
                         type: string
                       namespace:
                         default: tbd-identity-system
-                        description: "(Default: \"tbd-identity-system\")\nNamespace where\n\n\n\tthe capability components will be deployed."
+                        description: "(Default: \"tbd-identity-system\")\nNamespace
+                          where\n\n\n\tthe capability components will be deployed."
                         type: string
                     type: object
                 type: object
@@ -116,13 +123,15 @@ spec:
                     of the controller reconciliation loop.
                   properties:
                     lastModified:
-                      description: LastModified defines the time in which this component was updated.
+                      description: LastModified defines the time in which this component
+                        was updated.
                       type: string
                     message:
                       description: Message defines a helpful message from the phase.
                       type: string
                     phase:
-                      description: Phase defines the phase in which the condition was set.
+                      description: Phase defines the phase in which the condition
+                        was set.
                       type: string
                     state:
                       description: PhaseState defines the current state of the phase.
@@ -145,19 +154,24 @@ spec:
                 type: boolean
               resources:
                 items:
-                  description: ChildResource is the resource and its condition as stored on the workload custom resource's status field.
+                  description: ChildResource is the resource and its condition as
+                    stored on the workload custom resource's status field.
                   properties:
                     condition:
-                      description: ResourceCondition defines the current condition of this resource.
+                      description: ResourceCondition defines the current condition
+                        of this resource.
                       properties:
                         created:
-                          description: Created defines whether this object has been successfully created or not.
+                          description: Created defines whether this object has been
+                            successfully created or not.
                           type: boolean
                         lastModified:
-                          description: LastModified defines the time in which this resource was updated.
+                          description: LastModified defines the time in which this
+                            resource was updated.
                           type: string
                         message:
-                          description: Message defines a helpful message from the resource phase.
+                          description: Message defines a helpful message from the
+                            resource phase.
                           type: string
                       required:
                       - created
@@ -169,10 +183,12 @@ spec:
                       description: Kind defines the kind of the resource.
                       type: string
                     name:
-                      description: Name defines the name of the resource from the metadata.name field.
+                      description: Name defines the name of the resource from the
+                        metadata.name field.
                       type: string
                     namespace:
-                      description: Namespace defines the namespace in which this resource exists in.
+                      description: Namespace defines the namespace in which this resource
+                        exists in.
                       type: string
                     version:
                       description: Version defines the API Version of the resource.
@@ -196,7 +212,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
@@ -258,13 +274,15 @@ spec:
                     of the controller reconciliation loop.
                   properties:
                     lastModified:
-                      description: LastModified defines the time in which this component was updated.
+                      description: LastModified defines the time in which this component
+                        was updated.
                       type: string
                     message:
                       description: Message defines a helpful message from the phase.
                       type: string
                     phase:
-                      description: Phase defines the phase in which the condition was set.
+                      description: Phase defines the phase in which the condition
+                        was set.
                       type: string
                     state:
                       description: PhaseState defines the current state of the phase.
@@ -287,19 +305,24 @@ spec:
                 type: boolean
               resources:
                 items:
-                  description: ChildResource is the resource and its condition as stored on the workload custom resource's status field.
+                  description: ChildResource is the resource and its condition as
+                    stored on the workload custom resource's status field.
                   properties:
                     condition:
-                      description: ResourceCondition defines the current condition of this resource.
+                      description: ResourceCondition defines the current condition
+                        of this resource.
                       properties:
                         created:
-                          description: Created defines whether this object has been successfully created or not.
+                          description: Created defines whether this object has been
+                            successfully created or not.
                           type: boolean
                         lastModified:
-                          description: LastModified defines the time in which this resource was updated.
+                          description: LastModified defines the time in which this
+                            resource was updated.
                           type: string
                         message:
-                          description: Message defines a helpful message from the resource phase.
+                          description: Message defines a helpful message from the
+                            resource phase.
                           type: string
                       required:
                       - created
@@ -311,10 +334,12 @@ spec:
                       description: Kind defines the kind of the resource.
                       type: string
                     name:
-                      description: Name defines the name of the resource from the metadata.name field.
+                      description: Name defines the name of the resource from the
+                        metadata.name field.
                       type: string
                     namespace:
-                      description: Namespace defines the namespace in which this resource exists in.
+                      description: Namespace defines the namespace in which this resource
+                        exists in.
                       type: string
                     version:
                       description: Version defines the API Version of the resource.
@@ -340,7 +365,6 @@ metadata:
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-bootstrapper
     app.kubernetes.io/name: platform-config-operator
@@ -358,7 +382,6 @@ metadata:
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-bootstrapper
     app.kubernetes.io/name: platform-config-operator
@@ -416,12 +439,140 @@ metadata:
     capabilities.tbd.io/capability: platform-config-operator
     capabilities.tbd.io/platform-version: unstable
     capabilities.tbd.io/version: v0.0.1
-  name: platform-config-operator-manager-role
+  name: platform-config-operator-deploy-platformconfig-editor-role
 rules:
-- nonResourceURLs:
-  - /metrics
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformconfigs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformconfigs/status
   verbs:
   - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: platform-config-operator
+    app.kubernetes.io/component: platform-config-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-bootstrapper
+    app.kubernetes.io/name: platform-config-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: v0.0.1
+    capabilities.tbd.io/capability: platform-config-operator
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: platform-config-operator-deploy-platformconfig-viewer-role
+rules:
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformconfigs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformconfigs/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: platform-config-operator
+    app.kubernetes.io/component: platform-config-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-bootstrapper
+    app.kubernetes.io/name: platform-config-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: v0.0.1
+    capabilities.tbd.io/capability: platform-config-operator
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: platform-config-operator-deploy-platformoperators-editor-role
+rules:
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformoperators
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformoperators/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: platform-config-operator
+    app.kubernetes.io/component: platform-config-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-bootstrapper
+    app.kubernetes.io/name: platform-config-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: v0.0.1
+    capabilities.tbd.io/capability: platform-config-operator
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: platform-config-operator-deploy-platformoperators-viewer-role
+rules:
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformoperators
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - deploy.platform.tbd.io
+  resources:
+  - platformoperators/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: platform-config-operator
+    app.kubernetes.io/component: platform-config-operator
+    app.kubernetes.io/instance: manager
+    app.kubernetes.io/managed-by: platform-bootstrapper
+    app.kubernetes.io/name: platform-config-operator
+    app.kubernetes.io/part-of: platform
+    app.kubernetes.io/version: v0.0.1
+    capabilities.tbd.io/capability: platform-config-operator
+    capabilities.tbd.io/platform-version: unstable
+    capabilities.tbd.io/version: v0.0.1
+  name: platform-config-operator-manager-role
+rules:
 - apiGroups:
   - acme.cert-manager.io
   resources:
@@ -532,12 +683,6 @@ rules:
   - patch
   - update
   - watch
-- apiGroups:
-  - authentication.k8s.io
-  resources:
-  - tokenreviews
-  verbs:
-  - create
 - apiGroups:
   - authorization.k8s.io
   resources:
@@ -988,64 +1133,11 @@ rules:
   - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app: platform-config-operator
-    app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-bootstrapper
-    app.kubernetes.io/name: platform-config-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: v0.0.1
-    capabilities.tbd.io/capability: platform-config-operator
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-  name: platform-config-operator-metrics-reader
-rules:
-- nonResourceURLs:
-  - /metrics
-  verbs:
-  - get
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app: platform-config-operator
-    app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-bootstrapper
-    app.kubernetes.io/name: platform-config-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: v0.0.1
-    capabilities.tbd.io/capability: platform-config-operator
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-  name: platform-config-operator-proxy-role
-rules:
-- apiGroups:
-  - authentication.k8s.io
-  resources:
-  - tokenreviews
-  verbs:
-  - create
-- apiGroups:
-  - authorization.k8s.io
-  resources:
-  - subjectaccessreviews
-  verbs:
-  - create
----
-apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-bootstrapper
     app.kubernetes.io/name: platform-config-operator
@@ -1071,7 +1163,6 @@ metadata:
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-bootstrapper
     app.kubernetes.io/name: platform-config-operator
@@ -1090,75 +1181,12 @@ subjects:
   name: platform-config-operator-controller-manager
   namespace: tbd-operators-system
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    app: platform-config-operator
-    app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-bootstrapper
-    app.kubernetes.io/name: platform-config-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: v0.0.1
-    capabilities.tbd.io/capability: platform-config-operator
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-  name: platform-config-operator-proxy-rolebinding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: platform-config-operator-proxy-role
-subjects:
-- kind: ServiceAccount
-  name: platform-config-operator-controller-manager
-  namespace: tbd-operators-system
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: platform-config-operator
-    app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-bootstrapper
-    app.kubernetes.io/name: platform-config-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: v0.0.1
-    capabilities.tbd.io/capability: platform-config-operator
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-    control-plane: controller-manager
-  name: platform-config-operator-controller-manager-metrics-service
-  namespace: tbd-operators-system
-spec:
-  ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: https
-  selector:
-    app: platform-config-operator
-    app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/instance: manager
-    app.kubernetes.io/managed-by: platform-bootstrapper
-    app.kubernetes.io/name: platform-config-operator
-    app.kubernetes.io/part-of: platform
-    app.kubernetes.io/version: v0.0.1
-    capabilities.tbd.io/capability: platform-config-operator
-    capabilities.tbd.io/platform-version: unstable
-    capabilities.tbd.io/version: v0.0.1
-    control-plane: controller-manager
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: platform-config-operator
     app.kubernetes.io/component: platform-config-operator
-    app.kubernetes.io/created-by: platform-config-operator
     app.kubernetes.io/instance: manager
     app.kubernetes.io/managed-by: platform-bootstrapper
     app.kubernetes.io/name: platform-config-operator
@@ -1272,7 +1300,6 @@ spec:
             - ALL
           readOnlyRootFilesystem: true
       nodeSelector:
-        kubernetes.io/arch: arm64
         kubernetes.io/os: linux
         tbd.io/node-type: platform
       securityContext:

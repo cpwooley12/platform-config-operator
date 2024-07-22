@@ -14,6 +14,8 @@ metadata:
     app.kubernetes.io/managed-by: platform-config-operator
     certificates.platform.tbd.io/inject-ca-bundle: "true"
   annotations:
+    operator-builder.nukleros.io/ready-path: .status.created
+    operator-builder.nukleros.io/ready-value: "true"
     # +operator-builder:field:name=platform.certificates.deploymentSize,default="small",type=string,description=`Size of the
     # deployment for the underlying capability.  Must be one of small, medium, or large.
     # +kubebuilder:validation:Enum:small;medium;large`

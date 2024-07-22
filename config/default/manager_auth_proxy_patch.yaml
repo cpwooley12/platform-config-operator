@@ -16,7 +16,6 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
         tbd.io/node-type: platform
-        kubernetes.io/arch: arm64
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

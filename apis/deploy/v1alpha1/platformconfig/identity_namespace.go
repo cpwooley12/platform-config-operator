@@ -54,6 +54,8 @@ func CreateNamespacePlatformIdentityNamespace(
 					"certificates.platform.tbd.io/inject-ca-bundle": "true",
 				},
 				"annotations": map[string]interface{}{
+					"operator-builder.nukleros.io/ready-path":  ".status.created",
+					"operator-builder.nukleros.io/ready-value": "true",
 					// controlled by field: cloud.type
 					// controlled by field: cloud.local
 					// controlled by field: platform.identity.deploymentSize

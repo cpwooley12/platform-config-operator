@@ -2,18 +2,18 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'chore: add license to managed assets...'
-      sha: e61a2ebe4362ee2cce69e0c06fd014fe5babb822
+      commitTitle: 'ci: ensure kustomization stays at latest...'
+      sha: 89d806baa19a886cb5e6babb3de77835f220861d
       tags:
-      - v0.0.0-alpha.1-1-ge61a2eb
+      - v0.0.0-alpha.2
     path: .
   path: config/vendor/certificates
 - contents:
   - git:
-      commitTitle: 'ci: add release workflow...'
-      sha: ab7956ee075ed02e797f3d994254323a9bf82788
+      commitTitle: 'ci: ensure kustomization stays at latest...'
+      sha: 211aa9dd510c90b51a6958a6e1448d6aed30c847
       tags:
-      - v0.0.0-alpha.1
+      - v0.0.0-alpha.2
     path: .
   path: config/vendor/identity
 kind: LockConfig

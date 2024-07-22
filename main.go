@@ -36,7 +36,7 @@ import (
 
 	deployv1alpha1 "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1"
 	deploycontrollers "github.com/tbd-paas/platform-config-operator/controllers/deploy"
-	//+kubebuilder:scaffold:imports
+	// +kubebuilder:scaffold:imports
 )
 
 type ReconcilerInitializer interface {
@@ -53,7 +53,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(deployv1alpha1.AddToScheme(scheme))
-	//+kubebuilder:scaffold:scheme
+	// +kubebuilder:scaffold:scheme
 }
 
 func main() {
@@ -115,6 +115,7 @@ func main() {
 			TLSOpts:       tlsOpts,
 		},
 	})
+
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
 		os.Exit(1)
@@ -123,7 +124,7 @@ func main() {
 	reconcilers := []ReconcilerInitializer{
 		deploycontrollers.NewPlatformOperatorsReconciler(mgr),
 		deploycontrollers.NewPlatformConfigReconciler(mgr),
-		//+kubebuilder:scaffold:reconcilers
+		// +kubebuilder:scaffold:reconcilers
 	}
 
 	for _, reconciler := range reconcilers {

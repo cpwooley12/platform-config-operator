@@ -24,8 +24,8 @@ import (
 	deployv1alpha1 "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1"
 )
 
-// MutateServiceNamespaceCertificatesOperatorControllerManagerMetricsService mutates the Service resource with name certificates-operator-controller-manager-metrics-service.
-func MutateServiceNamespaceCertificatesOperatorControllerManagerMetricsService(
+// MutateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookEditorRole mutates the ClusterRole resource with name identity-operator-identity-awspodidentitywebhook-editor-role.
+func MutateClusterRoleIdentityOperatorIdentityAwspodidentitywebhookEditorRole(
 	original client.Object,
 	parent *deployv1alpha1.PlatformOperators,
 	reconciler workload.Reconciler, req *workload.Request,

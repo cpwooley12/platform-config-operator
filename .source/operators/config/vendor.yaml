@@ -8,11 +8,11 @@ directories:
     contents:
       - path: ./
         http:
-          url: https://github.com/tbd-paas/capabilities-certificates-operator/releases/download/v0.0.0-alpha.1/manifests.yaml
+          url: https://github.com/tbd-paas/capabilities-certificates-operator/releases/download/v0.0.0-alpha.2/manifests.yaml
 
   # identity
   - path: operators/vendor/identity
     contents:
       - path: ./
         http:
-          url: https://github.com/tbd-paas/capabilities-identity-operator/releases/download/v0.0.0-alpha.1/manifests.yaml
+          url: https://github.com/tbd-paas/capabilities-identity-operator/releases/download/v0.0.0-alpha.2/manifests.yaml

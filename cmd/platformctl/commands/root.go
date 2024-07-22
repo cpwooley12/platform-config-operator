@@ -28,7 +28,7 @@ import (
 	generatedeploy "github.com/tbd-paas/platform-config-operator/cmd/platformctl/commands/generate/deploy"
 	initdeploy "github.com/tbd-paas/platform-config-operator/cmd/platformctl/commands/init/deploy"
 	versiondeploy "github.com/tbd-paas/platform-config-operator/cmd/platformctl/commands/version/deploy"
-	//+kubebuilder:scaffold:operator-builder:subcommands:imports
+	// +kubebuilder:scaffold:operator-builder:subcommands:imports
 )
 
 // PlatformctlCommand represents the base command when called without any subcommands.
@@ -64,7 +64,7 @@ func (c *PlatformctlCommand) newInitSubCommand() {
 	// add the init subcommands
 	initdeploy.NewPlatformOperatorsSubCommand(parentCommand)
 	initdeploy.NewPlatformConfigSubCommand(parentCommand)
-	//+kubebuilder:scaffold:operator-builder:subcommands:init
+	// +kubebuilder:scaffold:operator-builder:subcommands:init
 }
 
 func (c *PlatformctlCommand) newGenerateSubCommand() {
@@ -74,7 +74,7 @@ func (c *PlatformctlCommand) newGenerateSubCommand() {
 	// add the generate subcommands
 	generatedeploy.NewPlatformOperatorsSubCommand(parentCommand)
 	generatedeploy.NewPlatformConfigSubCommand(parentCommand)
-	//+kubebuilder:scaffold:operator-builder:subcommands:generate
+	// +kubebuilder:scaffold:operator-builder:subcommands:generate
 }
 
 func (c *PlatformctlCommand) newVersionSubCommand() {
@@ -84,7 +84,7 @@ func (c *PlatformctlCommand) newVersionSubCommand() {
 	// add the version subcommands
 	versiondeploy.NewPlatformOperatorsSubCommand(parentCommand)
 	versiondeploy.NewPlatformConfigSubCommand(parentCommand)
-	//+kubebuilder:scaffold:operator-builder:subcommands:version
+	// +kubebuilder:scaffold:operator-builder:subcommands:version
 }
 
 // addSubCommands adds any additional subCommands to the root command.

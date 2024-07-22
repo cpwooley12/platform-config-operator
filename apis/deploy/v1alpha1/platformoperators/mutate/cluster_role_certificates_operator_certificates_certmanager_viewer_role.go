@@ -24,8 +24,8 @@ import (
 	deployv1alpha1 "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1"
 )
 
-// MutateClusterRoleBindingIdentityOperatorProxyRolebinding mutates the ClusterRoleBinding resource with name identity-operator-proxy-rolebinding.
-func MutateClusterRoleBindingIdentityOperatorProxyRolebinding(
+// MutateClusterRoleCertificatesOperatorCertificatesCertmanagerViewerRole mutates the ClusterRole resource with name certificates-operator-certificates-certmanager-viewer-role.
+func MutateClusterRoleCertificatesOperatorCertificatesCertmanagerViewerRole(
 	original client.Object,
 	parent *deployv1alpha1.PlatformOperators,
 	reconciler workload.Reconciler, req *workload.Request,

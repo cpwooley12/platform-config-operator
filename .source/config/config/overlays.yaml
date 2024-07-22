@@ -12,6 +12,15 @@ commonOverlays:
       app.kubernetes.io/part-of: platform
       app.kubernetes.io/managed-by: platform-config-operator
 
+  - name: "add annotations to ensure readiness of resources"
+    query: metadata.annotations
+    action: merge
+    onMissing:
+      action: inject
+    value:
+      operator-builder.nukleros.io/ready-path: ".status.created"
+      operator-builder.nukleros.io/ready-value: "true"
+
   - name: "adjust the name to be considered a config resource"
     documentQuery:
       - conditions:

@@ -14,6 +14,8 @@ metadata:
     app.kubernetes.io/managed-by: platform-config-operator
     certificates.platform.tbd.io/inject-ca-bundle: "true"
   annotations:
+    operator-builder.nukleros.io/ready-path: .status.created
+    operator-builder.nukleros.io/ready-value: "true"
     # +operator-builder:field:name=cloud.type,default="aws",type=string,description=`
     # +kubebuilder:validation:Enum=aws
     # Underlying cloud type this platform is deployed upon.  Currently, only AWS is supported.`
