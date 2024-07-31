@@ -1,0 +1,4 @@
+## Debugging
+
+- devle in VScode 
+- 

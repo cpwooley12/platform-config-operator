@@ -6,10 +6,10 @@ spec:
   platform:
     certificates:
       namespace: "tbd-certificates-system"
-      deploymentSize: "small"
+      deploymentSize: "large"
     identity:
       namespace: "tbd-identity-system"
-      deploymentSize: "small"
+      deploymentSize: "large"
   cloud:
     type: "aws"
     local: true

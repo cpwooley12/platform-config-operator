@@ -30,3 +30,6 @@ Dockerfile.cross
 
 # do not store generated manifests in git
 *.yaml.generated
+
+# do not store testing kind config in git
+kind-config.yaml

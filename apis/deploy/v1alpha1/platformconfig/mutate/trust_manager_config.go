@@ -19,35 +19,36 @@ package mutate
 import (
 	"fmt"
 
-	"sigs.k8s.io/controller-runtime/pkg/client"
-	trustmanagerv1alpha1 "github.com/tbd-paas/capabilities-trust-manager-operator/apis/trustmanager/v1alpha1"
 	"github.com/nukleros/operator-builder-tools/pkg/controller/workload"
+	"github.com/nukleros/operator-builder-tools/pkg/resources"
+	certificatesv1alpha1 "github.com/tbd-paas/capabilities-certificates-operator/apis/certificates/v1alpha1"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	deployv1alpha1 "github.com/tbd-paas/platform-config-operator/apis/deploy/v1alpha1"
 )
 
 const (
 	// deployment sizes
-	Small  = "small"
-	Medium = "medium"
-	Large  = "large"
+	trustManagerSmall  = "small"
+	trustManagerMedium = "medium"
+	trustManagerLarge  = "large"
 
 	// controller resource requests, limits and replicas
-	smallControllerReplicas  = 1
-	mediumControllerReplicas = 1
-	largeControllerReplicas  = 2
-	
-	smallControllerCPURequests    = "25m"
-	smallControllerMemoryRequests = "32Mi"
-	smallControllerMemoryLimits   = "64Mi"
+	trustManagersmallControllerReplicas  = 1
+	trustManagermediumControllerReplicas = 1
+	trustManagerlargeControllerReplicas  = 2
 
-	mediumControllerCPURequests    = "50m"
-	mediumControllerMemoryRequests = "64Mi"
-	mediumControllerMemoryLimits   = "96Mi"
+	trustManagersmallControllerCPURequests    = "25m"
+	trustManagersmallControllerMemoryRequests = "32Mi"
+	trustManagersmallControllerMemoryLimits   = "64Mi"
 
-	largeControllerCPURequests    = "50m"
-	largeControllerMemoryRequests = "64Mi"
-	largeControllerMemoryLimits   = "96Mi"
+	trustManagermediumControllerCPURequests    = "50m"
+	trustManagermediumControllerMemoryRequests = "64Mi"
+	trustManagermediumControllerMemoryLimits   = "96Mi"
+
+	trustManagerlargeControllerCPURequests    = "50m"
+	trustManagerlargeControllerMemoryRequests = "64Mi"
+	trustManagerlargeControllerMemoryLimits   = "96Mi"
 )
 
 // MutateTrustManagerConfig mutates the TrustManager resource with name config.
@@ -61,36 +62,42 @@ func MutateTrustManagerConfig(
 		return []client.Object{original}, nil
 	}
 
-	trustManager, ok := original.(*trustmanagerv1alpha1.TrustManager)
-	if !ok {
-		return nil, fmt.Errorf("original object is not a TrustManager - found  %T", original)
+	trustManager := &certificatesv1alpha1.TrustManager{}
+	err := resources.ToTyped(trustManager, original)
+	if err != nil {
+		return nil, fmt.Errorf("failed to convert object to TrustManager type: %w", err)
 	}
 
+	// trustManager, ok := original.(*certificatesv1alpha1.TrustManager)
+	// if !ok {
+	// 	return nil, fmt.Errorf("original object is not a TrustManager - found  %T", original)
+	// }
+
 	//apply the trustmanager configuration
-	if err := applyTrustManagerConfig(trustmanager, parent.Spec.Platform.Identity.DeploymentSize); err != nil {
+	if err := applyTrustManagerConfig(trustManager, parent.Spec.Platform.Identity.DeploymentSize); err != nil {
 		return nil, err
 	}
 
 	return []client.Object{trustManager}, nil
 }
 
-func applyTrustManagerConfig(trustManager *trustmanagerv1alpha1.TrustManager, deploymentSize string) error {
+func applyTrustManagerConfig(trustManager *certificatesv1alpha1.TrustManager, deploymentSize string) error {
 	switch deploymentSize {
-	case Small:
-		trustManager.Spec.Controller.Replicas = smallControllerReplicas
-		trustManager.Spec.Controller.Resources.Requests.CPU = smallControllerCPURequests
-		trustManager.Spec.Controller.Resources.Requests.Memory = smallControllerMemoryRequests
-		trustManager.Spec.Controller.Resources.Limits.Memory = smallControllerMemoryLimits
-	case Medium:
-		trustManager.Spec.Controller.Replicas = mediumControllerReplicas
-		trustManager.Spec.Controller.Resources.Requests.CPU = mediumControllerCPURequests
-		trustManager.Spec.Controller.Resources.Requests.Memory = mediumControllerMemoryRequests
-		trustManager.Spec.Controller.Resources.Limits.Memory = mediumControllerMemoryLimits
-	case Large:
-		trustManager.Spec.Controller.Replicas = largeControllerReplicas
-		trustManager.Spec.Controller.Resources.Requests.CPU = largeControllerCPURequests
-		trustManager.Spec.Controller.Resources.Requests.Memory = largeControllerMemoryRequests
-		trustManager.Spec.Controller.Resources.Limits.Memory = largeControllerMemoryLimits
+	case trustManagerSmall:
+		trustManager.Spec.Controller.Replicas = trustManagersmallControllerReplicas
+		trustManager.Spec.Controller.Resources.Requests.Cpu = trustManagersmallControllerCPURequests
+		trustManager.Spec.Controller.Resources.Requests.Memory = trustManagersmallControllerMemoryRequests
+		trustManager.Spec.Controller.Resources.Limits.Memory = trustManagersmallControllerMemoryLimits
+	case trustManagerMedium:
+		trustManager.Spec.Controller.Replicas = trustManagermediumControllerReplicas
+		trustManager.Spec.Controller.Resources.Requests.Cpu = trustManagermediumControllerCPURequests
+		trustManager.Spec.Controller.Resources.Requests.Memory = trustManagermediumControllerMemoryRequests
+		trustManager.Spec.Controller.Resources.Limits.Memory = trustManagermediumControllerMemoryLimits
+	case trustManagerLarge:
+		trustManager.Spec.Controller.Replicas = trustManagerlargeControllerReplicas
+		trustManager.Spec.Controller.Resources.Requests.Cpu = trustManagerlargeControllerCPURequests
+		trustManager.Spec.Controller.Resources.Requests.Memory = trustManagerlargeControllerMemoryRequests
+		trustManager.Spec.Controller.Resources.Limits.Memory = trustManagerlargeControllerMemoryLimits
 	default:
 		return fmt.Errorf("invalid deployment size %s", deploymentSize)
 	}
